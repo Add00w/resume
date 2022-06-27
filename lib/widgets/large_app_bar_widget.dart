@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:resume/constants/app_constants.dart';
-import 'package:resume/providers/project_provider.dart';
-import 'package:url_launcher/url_launcher.dart';
+
+import './footer_social_media_widget.dart';
+import '../constants/app_constants.dart';
+import '../providers/project_provider.dart';
 
 class LargeAppBarWidget extends StatelessWidget {
   const LargeAppBarWidget({
@@ -22,26 +22,31 @@ class LargeAppBarWidget extends StatelessWidget {
         padding: const EdgeInsets.only(right: 15),
         child: InkWell(
           onTap: () {
-            ProjectProvider.selectProject(-1);
+            selectedIndexNotifier.value = -1;
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Flexible(
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(30),
                   child: Image.asset(
-                    'assets/images/me.jpg',
-                    height: 40,
+                    AppConstants.me,
+                    fit: BoxFit.cover,
+                    height: 50,
+                    width: 50,
                   ),
                 ),
               ),
-              Text(
-                'AbdullahI Addow',
-                style: Theme.of(context)
-                    .textTheme
-                    .headline6!
-                    .copyWith(color: Colors.black, fontSize: 18),
+              Flexible(
+                flex: 3,
+                child: Text(
+                  'Abdullahi Addow',
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline6!
+                      .copyWith(color: Colors.black, fontSize: 18),
+                ),
               ),
             ],
           ),
@@ -53,11 +58,11 @@ class LargeAppBarWidget extends StatelessWidget {
           child: Row(
             children: [
               ValueListenableBuilder(
-                  valueListenable: ProjectProvider.selectedIndexNotifier,
+                  valueListenable: selectedIndexNotifier,
                   builder: (context, int selectedIndex, _) {
                     return InkWell(
                       onTap: () {
-                        ProjectProvider.selectProject(-1);
+                        selectedIndexNotifier.value = -1;
                       },
                       child: Text(
                         'About',
@@ -70,45 +75,7 @@ class LargeAppBarWidget extends StatelessWidget {
                     );
                   }),
               const SizedBox(width: 20),
-              InkWell(
-                onTap: () {
-                  launch(AppConstants.githubProfile);
-                },
-                child: SizedBox(
-                  width: 30,
-                  height: 30,
-                  child: SvgPicture.asset(
-                    'assets/images/github.svg',
-                    color: Colors.blue,
-                    fit: BoxFit.contain,
-                  ),
-                ),
-              ),
-              const SizedBox(width: 10),
-              InkWell(
-                onTap: () {
-                  launch(AppConstants.linkedInProfile);
-                },
-                child: SizedBox(
-                  width: 30,
-                  height: 30,
-                  child: SvgPicture.asset('assets/images/linkedin.svg'),
-                ),
-              ),
-              const SizedBox(width: 10),
-              InkWell(
-                onTap: () {
-                  launch(AppConstants.twitterProfile);
-                },
-                child: SizedBox(
-                  width: 30,
-                  height: 30,
-                  child: SvgPicture.asset(
-                    'assets/images/twitter.svg',
-                    height: 50,
-                  ),
-                ),
-              ),
+              const FooterSocialMediaWidget(),
             ],
           ),
         ),
