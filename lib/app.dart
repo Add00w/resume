@@ -1,5 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:resume/pages/main_layout.dart';
+import 'package:flutter/material.dart'
+    show BuildContext, Key, MaterialApp, StatelessWidget, Widget;
+
+import './pages/main_layout.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);

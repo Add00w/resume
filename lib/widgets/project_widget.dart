@@ -1,6 +1,18 @@
-import 'package:flutter/material.dart';
-import 'package:resume/models/project.dart';
-import 'package:resume/utils/helpers/ui_helper.dart';
+import 'package:flutter/material.dart'
+    show
+        BuildContext,
+        Colors,
+        EdgeInsets,
+        Key,
+        ListTile,
+        StatelessWidget,
+        Text,
+        Theme,
+        VoidCallback,
+        Widget;
+
+import '../models/project.dart';
+import '../utils/helpers/ui_helper.dart';
 
 class ProjectWidget extends StatelessWidget {
   const ProjectWidget({
@@ -22,7 +34,9 @@ class ProjectWidget extends StatelessWidget {
         project.name,
         style: Theme.of(context).textTheme.headline6!.copyWith(
               fontSize: 18,
-              color: selected ? Colors.blue : Colors.black,
+              color: selected //
+                  ? Colors.blue
+                  : Colors.black,
             ),
       ),
       selected: selected,

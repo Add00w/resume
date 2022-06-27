@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:resume/models/project.dart';
-import 'package:resume/utils/helpers/ui_helper.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../models/project.dart';
+import '../utils/helpers/ui_helper.dart';
 
 class ProjectDetailsWidget extends StatelessWidget {
   const ProjectDetailsWidget({Key? key, required this.project})
@@ -34,7 +35,10 @@ class ProjectDetailsWidget extends StatelessWidget {
                 width: 500,
                 child: SelectableText(
                   project.description,
-                  style: Theme.of(context).textTheme.headline6,
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline6!
+                      .copyWith(height: 1.5),
                 ),
               ),
               const SizedBox(height: 10),
