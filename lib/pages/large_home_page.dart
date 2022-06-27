@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:resume/models/project.dart';
-import 'package:resume/providers/project_provider.dart';
-import 'package:resume/services/project_service.dart';
-import 'package:resume/widgets/about_widget.dart';
-import 'package:resume/widgets/large_app_bar_widget.dart';
-import 'package:resume/widgets/project_details_widget.dart';
-import 'package:resume/widgets/project_widget.dart';
+
+import '../models/project.dart';
+import '../providers/project_provider.dart';
+import '../services/project_service.dart';
+import '../widgets/about_widget.dart';
+import '../widgets/large_app_bar_widget.dart';
+import '../widgets/project_details_widget.dart';
+import '../widgets/project_widget.dart';
 
 class LargeHomePage extends StatelessWidget {
   LargeHomePage({Key? key})
@@ -48,19 +49,18 @@ class LargeHomePage extends StatelessWidget {
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
                       return ValueListenableBuilder(
-                          valueListenable:
-                              ProjectProvider.selectedIndexNotifier,
+                          valueListenable: selectedIndexNotifier,
                           builder: (_, int selectedIndex, __) {
                             return ProjectWidget(
                               project: projects[index],
                               selected: index == selectedIndex,
                               callback: () {
-                                ProjectProvider.selectProject(index);
+                                selectedIndexNotifier.value = index;
                               },
                             );
                           });
                     },
-                  )
+                  ),
                 ],
               ),
             ),
@@ -69,18 +69,19 @@ class LargeHomePage extends StatelessWidget {
           Expanded(
             flex: 7,
             child: ValueListenableBuilder(
-                valueListenable: ProjectProvider.selectedIndexNotifier,
-                builder: (context, int selectedIndex, _) {
-                  return Container(
-                    color: Colors.white10,
-                    margin: const EdgeInsets.only(left: 16.0),
-                    child: selectedIndex < 0
-                        ? const AboutWidget()
-                        : ProjectDetailsWidget(
-                            project: projects[selectedIndex],
-                          ),
-                  );
-                }),
+              valueListenable: selectedIndexNotifier,
+              builder: (context, int selectedIndex, _) {
+                return Container(
+                  color: Colors.white10,
+                  margin: const EdgeInsets.only(left: 16.0),
+                  child: selectedIndex < 0
+                      ? const AboutWidget()
+                      : ProjectDetailsWidget(
+                          project: projects[selectedIndex],
+                        ),
+                );
+              },
+            ),
           ),
         ],
       ),
